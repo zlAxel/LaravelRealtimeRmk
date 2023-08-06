@@ -29,7 +29,7 @@ class UserDeleted implements ShouldBroadcast {
     public function broadcastOn(): array {
         // \Log::debug("Usuario eliminado: {$this->user->name}");
         return [
-            new PrivateChannel('users'),
+            new Channel('users'),
         ];
     }
 }

@@ -29,7 +29,7 @@ class UserUpdated implements ShouldBroadcast {
     public function broadcastOn(): array {
         // \Log::debug("Usuario actualizado: {$this->user->name}");
         return [
-            new PrivateChannel('users'),
+            new Channel('users'),
         ];
     }
 }

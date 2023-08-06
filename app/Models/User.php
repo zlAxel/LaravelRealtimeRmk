@@ -51,6 +51,13 @@ class User extends Authenticatable
     ];
 
     // ? Ejecutamos los eventos de Laravel
+    
+    /**
+     * The event map for the model.
+     *
+     * @var array<string, string>
+     */
+    
     protected $dispatchesEvents = [
         'created' => UserCreated::class,
         'updated' => UserUpdated::class,

@@ -21,6 +21,7 @@
     {{-- Scripts adicionales --}}
     <script>
         $(document).ready(function () {
+            // Elemento HTML donde se mostrarán los usuarios
             const $users = document.getElementById('users');
 
             // Petición Axios
@@ -39,6 +40,33 @@
                 })
                 .catch(function (error) {
                     console.log(error);
+                });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Elemento HTML donde se mostrarán los usuarios
+            const $users = document.getElementById('users');
+
+            // Escuchamos al canal de usuarios
+            Echo.channel('users')
+                .listen('UserCreated', (e) => {
+                    let li = document.createElement('li');
+
+                    li.setAttribute( 'id', e.user.id )
+                    li.innerText = e.user.name;
+
+                    $users.appendChild( li );
+                })
+                .listen('UserUpdated', (e) => {
+                    let li = document.getElementById( e.user.id );
+
+                    li.innerText = e.user.name;
+                })
+                .listen('UserDeleted', (e) => {
+                    let li = document.getElementById( e.user.id );
+
+                    li.parentNode.removeChild( li );
                 });
         });
     </script>

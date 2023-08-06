@@ -29,6 +29,6 @@ Route::middleware('auth')->group(function () {
 });
 
 // ! Generamos vista para obtener a los usuarios
-Route::view('/users', 'users.index')->name('users.index');
+Route::view('/users', 'users.index')->middleware('auth')->name('users.index');
 
 require __DIR__.'/auth.php';
