@@ -6,6 +6,7 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
+// ! ---------------------------------------------------------------
 // ! Configuración para remover notificación con jQuery
 
 $(document).ready(function () {
@@ -13,16 +14,36 @@ $(document).ready(function () {
         removeNotification();
     });
 
-    // addNotification('Gerardo Axel Macias Hoyos', 'Ha cambiado su estado a:', 'Activo', 'success')
-    // addNotification('Gerardo Axel Macias Hoyos', 'Ha cambiado su estado a:', 'Inactivo', 'error')
+    // TODO | Escuchamos el evento de notificación con Echo
+    Echo.private('notifications')
+        .listen('UserSessionChanged', (e) => {
+            // ? Asignamos el estado de la notificación
+            let state = null
+            switch (e.type) {
+                case 'success':
+                    state = 'Activo';
+                    break;
+                case 'danger':
+                    state = 'Inactivo';
+                    break;
+            }
+
+            // ? Agregamos la notificación con los datos del evento
+            addNotification(e.name, 'Ha cambiado su estado a:', state, e.type);
+        }); 
+    // ? Fin del evento de notificación con Echo       
 });
 
+// ! ---------------------------------------------------------------
 // ! Función para remover notificación
+
 function removeNotification() {
     $('#notification').removeClass('!translate-x-0');
 }
 
+// ! ---------------------------------------------------------------
 // ! Función para agregar datos de la notificación
+
 function addNotification(title, message, state, type) {
     // * Removemos las clases de los colores
     $('#notification #dot_state').removeClass('bg-green-400 bg-red-400');
@@ -39,7 +60,7 @@ function addNotification(title, message, state, type) {
             $('#notification #dot_state').addClass('bg-green-400');
             $('#notification #state').addClass('text-green-600');
             break;
-        case 'error':
+        case 'danger':
             $('#notification #dot_state').addClass('bg-red-400');
             $('#notification #state').addClass('text-red-600');
             break;

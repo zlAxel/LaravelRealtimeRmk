@@ -3,6 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Events\UserCreated;
+use App\Events\UserDeleted;
+use App\Events\UserUpdated;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -31,6 +35,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -41,5 +48,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+    ];
+
+    // ? Ejecutamos los eventos de Laravel
+    protected $dispatchesEvents = [
+        'created' => UserCreated::class,
+        'updated' => UserUpdated::class,
+        'deleted' => UserDeleted::class,
     ];
 }
