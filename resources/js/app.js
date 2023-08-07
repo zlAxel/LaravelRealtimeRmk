@@ -39,6 +39,11 @@ $(document).ready(function () {
 
 function removeNotification() {
     $('#notification').removeClass('!translate-x-0');
+
+    // * Asignamos los valores
+    $('#notification #name').html('');
+    $('#notification #message').html('');
+    $('#notification #state').html('');
 }
 
 // ! ---------------------------------------------------------------

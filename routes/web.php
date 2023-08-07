@@ -31,4 +31,7 @@ Route::middleware('auth')->group(function () {
 // ! Generamos vista para obtener a los usuarios
 Route::view('/users', 'users.index')->middleware('auth')->name('users.index');
 
+// ! Generamos ruta para la ruleta
+Route::view('/ruleta', 'ruleta.index')->middleware('auth')->name('ruleta.index');
+
 require __DIR__.'/auth.php';
