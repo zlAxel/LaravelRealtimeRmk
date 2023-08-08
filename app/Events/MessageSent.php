@@ -33,7 +33,6 @@ class MessageSent implements ShouldBroadcast{
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
     public function broadcastOn(): array {
-        \Log::debug("{$this->user->name}: {$this->message}");
         return [
             new PresenceChannel('chat'),
         ];
