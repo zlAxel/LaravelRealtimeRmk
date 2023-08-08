@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,5 +35,9 @@ Route::view('/users', 'users.index')->middleware('auth')->name('users.index');
 
 // ! Generamos ruta para la ruleta
 Route::view('/ruleta', 'ruleta.index')->middleware('auth')->name('ruleta.index');
+
+// ! Generamos ruta para el chat
+Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+Route::post('/chat/message', [ChatController::class, 'store'])->name('chat.store');
 
 require __DIR__.'/auth.php';

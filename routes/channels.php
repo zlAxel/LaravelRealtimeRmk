@@ -22,3 +22,13 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('notifications', function ($user) {
     return $user->id != null;
 });
+
+// ! Definimos el canal para el chat
+Broadcast::channel('chat', function ($user) {
+    if( $user != null ){
+        return [
+            'id'   => $user->id,
+            'name' => $user->name,
+        ];
+    }
+});
