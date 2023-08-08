@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GreetingUser;
 use App\Events\MessageSent;
+
+use App\Models\User;
 
 use Illuminate\Http\Request;
 
@@ -36,6 +39,22 @@ class ChatController extends Controller {
 
         return response()->json([
             'message' => 'Mensaje enviado',
+        ]);
+    }
+
+    /**
+     * Greet a user.
+     */
+    
+    public function greet(Request $request) {
+        $user = User::find($request->user_id);
+
+        // ! Enviamos el mensaje a un usuario en específico
+        broadcast( new GreetingUser( $user->id, "¡{$request->user()->name} te ha saludado!" ) )/* ->toOthers() */;
+        broadcast( new GreetingUser( auth()->id(), "¡Saludaste a {$user->name}!" ) )/* ->toOthers() */;
+
+        return response()->json([
+            'message' => 'Saludo enviado',
         ]);
     }
 }

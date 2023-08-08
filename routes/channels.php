@@ -32,3 +32,8 @@ Broadcast::channel('chat', function ($user) {
         ];
     }
 });
+
+// ! Definimos el canal para el saludo
+Broadcast::channel('greeting-user.{user_id}', function ($user, $user_id) {
+    return $user->id == $user_id;
+});

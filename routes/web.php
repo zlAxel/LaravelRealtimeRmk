@@ -39,5 +39,6 @@ Route::view('/ruleta', 'ruleta.index')->middleware('auth')->name('ruleta.index')
 // ! Generamos ruta para el chat
 Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
 Route::post('/chat/message', [ChatController::class, 'store'])->name('chat.store');
+Route::post('/chat/greet', [ChatController::class, 'greet'])->name('chat.greet');
 
 require __DIR__.'/auth.php';

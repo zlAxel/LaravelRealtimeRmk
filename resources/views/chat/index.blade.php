@@ -150,6 +150,39 @@
                     });
                 }
             });
+
+            // Evento para saludar a usuarios
+            $('#users').on('click', 'li', function (e) {
+                e.preventDefault();
+                // Realizamos petición con axios para saludar al usuario
+                window.axios.post('{{ route('chat.greet') }}', {
+                    user_id: $(this).attr('id')
+                }).catch( error => {
+                    console.log( error.response.data.message );
+                });
+            });
+
+            // Escuchamos al canal de saludos
+            Echo.private('greeting-user.' + userId)
+                .listen('GreetingUser', ( message ) => {
+                    // Agregamos el mensaje a la lista de mensajes
+                    let li = document.createElement('li');
+                    li.className = "flex justify-end";
+                    
+                    let div = document.createElement('div');
+                    div.className = "relative max-w-xl px-4 py-2 text-emerald-600 rounded shadow";
+
+                    let spanName    = document.createElement('span');
+
+                    spanName.classList = "block text-xs font-bold pb-1";
+                    spanName.innerText = message.greeting;
+
+                    div.appendChild( spanName );
+                    
+                    li.appendChild( div );
+                    
+                    messagesList.appendChild( li );
+                });
         });
     </script>
 @endpush
