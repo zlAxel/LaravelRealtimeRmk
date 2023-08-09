@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
@@ -40,5 +41,9 @@ Route::view('/ruleta', 'ruleta.index')->middleware('auth')->name('ruleta.index')
 Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
 Route::post('/chat/message', [ChatController::class, 'store'])->name('chat.store');
 Route::post('/chat/greet', [ChatController::class, 'greet'])->name('chat.greet');
+
+// ! Generamos ruta para mostrar producto de compras
+Route::get('/producto', [ProductoController::class, 'index'])->name('chat.index');
+Route::post('producto/store', [ProductoController::class, 'store'])->name('producto.store');
 
 require __DIR__.'/auth.php';

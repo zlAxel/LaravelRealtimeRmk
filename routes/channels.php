@@ -37,3 +37,8 @@ Broadcast::channel('chat', function ($user) {
 Broadcast::channel('greeting-user.{user_id}', function ($user, $user_id) {
     return $user->id == $user_id;
 });
+
+// ! Definimos el canal para la notificación
+Broadcast::channel('notifications.{user_id}', function ($user, $user_id) {
+    return $user->id == $user_id;
+});

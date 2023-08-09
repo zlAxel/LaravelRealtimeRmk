@@ -11,6 +11,8 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        {{-- Funciones --}}
+        <script src="{{ asset('assets/js/functions.js') }}"></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -50,5 +52,20 @@
 
         {{-- ? Scripts por página --}}
         @stack('scripts')
+
+        {{-- ? Script para escuchar las notificaciones del usuario --}}
+        <script>
+            $(document).ready(function () {
+                // Recuperamos el ID del usuario
+                const userId = {{ auth()->user()->id }};
+
+                Echo.private('notifications.' + userId)
+                    .listen('ShowNotification', (e) => {
+                        data = e.data
+                        // ? Agregamos la notificación con los datos del evento
+                        addNotification('Nueva compra', `Has vendido ${ data.amount }:`, data.product, 'success');
+                    });
+            });
+        </script>
     </body>
 </html>
