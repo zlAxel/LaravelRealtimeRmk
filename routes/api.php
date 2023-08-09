@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Api\ComentarioController;
 use App\Http\Controllers\Api\UserController;
 
 use Illuminate\Http\Request;
@@ -28,4 +29,11 @@ Route::apiResource('/users', UserController::class)->names([
     // 'show' => 'api.users.show',
     // 'update' => 'api.users.update',
     // 'destroy' => 'api.users.destroy',
+]);
+
+// Asignar un nombre a la ruta de recurso 'users'
+Route::apiResource('/comentarios', ComentarioController::class)->names([
+    'index' => 'api.comentarios.index',
+    'store' => 'api.comentarios.store',
+    'destroy' => 'api.comentarios.destroy',
 ]);

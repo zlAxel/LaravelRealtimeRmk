@@ -63,4 +63,9 @@ class User extends Authenticatable
         'updated' => UserUpdated::class,
         'deleted' => UserDeleted::class,
     ];
+
+    // ! Creamos la relacion de uno a muchos de usuarios
+    public function comentarios() {
+        return $this->hasMany(Comentario::class);
+    }
 }

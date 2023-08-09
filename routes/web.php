@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 
@@ -45,5 +46,8 @@ Route::post('/chat/greet', [ChatController::class, 'greet'])->name('chat.greet')
 // ! Generamos ruta para mostrar producto de compras
 Route::get('/producto', [ProductoController::class, 'index'])->name('chat.index');
 Route::post('producto/store', [ProductoController::class, 'store'])->name('producto.store');
+
+// ! Generamos ruta para mostrar publicaciones de usuarios
+Route::view('/posts', 'posts.index')->middleware('auth')->name('posts.index');
 
 require __DIR__.'/auth.php';
